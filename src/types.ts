@@ -11,12 +11,19 @@ export const dogSchema = z.object({
 
 export type Dog = z.infer<typeof dogSchema>;
 
-const initialDog = dogSchema.parse({
-  id: 0,
-  name: "",
-  image: "",
-  description: "",
-  isFavorite: false,
+export const allDogContextSchema = z.object({
+  allDogs: z.array(dogSchema),
+  setAllDogs: z.function().args(z.array(dogSchema)).returns(z.void()),
 });
 
-export const AllDogContext = createContext(initialDog);
+export type AllDogContextType = z.infer<typeof allDogContextSchema>;
+
+const initialDogContext: AllDogContextType = {
+  allDogs: [],
+  setAllDogs: (dogs: Dog[]) => {
+    initialDogContext.allDogs = dogs;
+  },
+};
+
+export const AllDogContext =
+  createContext<AllDogContextType>(initialDogContext);
