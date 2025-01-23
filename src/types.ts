@@ -1,3 +1,4 @@
+import { createContext } from "react";
 import { z } from "zod";
 
 export const dogSchema = z.object({
@@ -9,3 +10,13 @@ export const dogSchema = z.object({
 });
 
 export type Dog = z.infer<typeof dogSchema>;
+
+const initialDog = dogSchema.parse({
+  id: 0,
+  name: "",
+  image: "",
+  description: "",
+  isFavorite: false,
+});
+
+export const AllDogContext = createContext(initialDog);
