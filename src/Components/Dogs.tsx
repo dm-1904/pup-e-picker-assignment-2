@@ -1,6 +1,6 @@
 // Right now these dogs are constant, but in reality we should be getting these from our server
 
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { AllDogContext, Dog } from "../types";
 import { Requests } from "../api";
 import { DogCard } from "./DogCard";
@@ -14,7 +14,8 @@ export const Dogs = () => {
   // const fetchAndSetAllDogs = () => {
   //   return Requests.getAllRequests().then(setAllDogs);
   // };
-  const fetchAndSetAllDogs = async () => {
+  const fetchAndSetAllDogs = useCallback(async () => {
+    console.log("Fetching dogs...");
     try {
       const dogs = await Requests.getAllRequests();
       setAllDogs(dogs);
@@ -23,21 +24,45 @@ export const Dogs = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [setAllDogs]);
+
+  useEffect(() => {
+    fetchAndSetAllDogs().catch((error) =>
+      console.error("Error fetching dogs:", error)
+    );
+  }, [fetchAndSetAllDogs, setAllDogs]);
 
   // useEffect(() => {
   //   fetchAndSetAllDogs();
-  // }, []);
+  // }, [setAllDogs]);
 
-  useEffect(() => {
-    async () => {
-      try {
-        await fetchAndSetAllDogs();
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-  });
+  // useEffect(() => {
+  //   async () => {
+  //     console.log("Fetching dogs...");
+  //     try {
+  //       const dogs = await Requests.getAllRequests();
+  //       setAllDogs(dogs);
+  //     } catch (error) {
+  //       console.error("Failed to fetch dogs:", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   // fetchDogs();
+  // }, [setAllDogs]);
+
+  // useEffect(() => {
+  //   async () => {
+  //     try {
+  //       await fetchAndSetAllDogs();
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+  // });
+
+  //just fetching and setting dogs, dependency array
 
   // const handleFavoriteClick = (dog: Dog) => {
   //   const updateDog = { ...dog, isFavorite: !dog.isFavorite };
@@ -69,6 +94,7 @@ export const Dogs = () => {
   //   ));
   // };
   const renderDogCards = (dogs: Dog[]) => {
+    console.log("rendering dogs...");
     return dogs.map((dog) => (
       <div key={dog.id}>
         <DogCard
