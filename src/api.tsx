@@ -86,8 +86,6 @@ export const Requests = {
       });
   },
   updateItem: (id: number, updatedItem: Partial<Dog>): Promise<Dog | null> => {
-    console.log(`${API_URL}/dogs/${id}`);
-
     return fetch(`${API_URL}/dogs/${id}`, {
       method: "PATCH",
       headers: {

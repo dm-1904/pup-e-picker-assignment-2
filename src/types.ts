@@ -15,6 +15,14 @@ export type Dog = z.infer<typeof dogSchema>;
 export const allDogContextSchema = z.object({
   allDogs: z.array(dogSchema),
   setAllDogs: z.function().args(z.array(dogSchema)).returns(z.void()),
+  activeTab: z.string(),
+  setActiveTab: z.function().args(z.string()).returns(z.void()),
+  displayAll: z.boolean(),
+  setDisplayAll: z.function().args(z.boolean()).returns(z.void()),
+  displayFavorites: z.boolean(),
+  setDisplayFavorites: z.function().args(z.boolean()).returns(z.void()),
+  displayUnfavorites: z.boolean(),
+  setDisplayUnfavorites: z.function().args(z.boolean()).returns(z.void()),
 });
 //Lines 15-18 defines a Zod schema for the context object.
 //This schema specifies that the context object should have:
@@ -30,6 +38,22 @@ const initialDogContext: AllDogContextType = {
   setAllDogs: (dogs: Dog[]) => {
     initialDogContext.allDogs = dogs;
   },
+  activeTab: "none",
+  setActiveTab: (tab: string) => {
+    initialDogContext.activeTab = tab;
+  },
+  displayAll: true,
+  setDisplayAll: (display: boolean) => {
+    initialDogContext.displayAll = display;
+  },
+  displayFavorites: false,
+  setDisplayFavorites: (display: boolean) => {
+    initialDogContext.displayFavorites = display;
+  },
+  displayUnfavorites: false,
+  setDisplayUnfavorites: (display: boolean) => {
+    initialDogContext.displayUnfavorites = display;
+  },
 };
 //Lines 28-33 defines the initial context object initialDogContext with:
 //  allDogs: an empty array
@@ -39,3 +63,5 @@ export const AllDogContext =
   createContext<AllDogContextType>(initialDogContext);
 //Lines 38-39 creates a React context AllDogContext with the inital value
 //initialDogContext and typing it with AllDogContextType.
+
+export type TActiveTab = "fav" | "unfav" | "create" | "none";

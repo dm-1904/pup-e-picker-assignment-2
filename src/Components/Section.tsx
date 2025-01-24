@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import { AllDogContext, Dog, TActiveTab } from "../types";
 
 export const Section = ({
   label,
@@ -8,6 +9,22 @@ export const Section = ({
   label: string;
   children: ReactNode;
 }) => {
+  const { allDogs } = useContext(AllDogContext);
+  const [favoriteDogs, setFavoritedDogs] = useState<Dog[]>([]);
+  // const [activeTab, setActiveTab] = useState<TActiveTab>("none");
+
+  // const handleTabChange = (tabName: TActiveTab) => {
+  //   setActiveTab(tabName);
+  // };
+
+  const fetchAndSetFavoritedDogs = useCallback(() => {
+    const favorited = allDogs.filter((dog) => dog.isFavorite);
+    setFavoritedDogs(favorited);
+  }, [allDogs]);
+
+  useEffect(() => {
+    fetchAndSetFavoritedDogs();
+  }, [allDogs, fetchAndSetFavoritedDogs]);
   return (
     <section id="main-section">
       <div className="container-header">
@@ -20,7 +37,7 @@ export const Section = ({
               alert("click favorited");
             }}
           >
-            favorited ( {0} )
+            favorited ( {favoriteDogs.length} )
           </div>
 
           {/* This should display the unfavorited count */}

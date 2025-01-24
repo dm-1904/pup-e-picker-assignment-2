@@ -2,7 +2,7 @@
 
 import { useCallback, useContext, useEffect, useState } from "react";
 import { AllDogContext, Dog } from "../types";
-import { Requests, RequestsType } from "../api";
+import { Requests } from "../api";
 import { DogCard } from "./DogCard";
 
 // Todo: Refactor to get rid of props (THERE SHOULD BE NO PROPS DRILLING ON THIS COMPONENT)

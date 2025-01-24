@@ -39,7 +39,7 @@
       "name": "Kenton",
       "image": "/assets/cowardly.png",
       "description": "Bedfordshire Human tempora Managed Electronic Directives Nissan expedite",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 7
     },
     {
@@ -118,13 +118,6 @@
       "description": "Lead synergistic noisy operating Passenger female Salad Rubber",
       "isFavorite": true,
       "id": 18
-    },
-    {
-      "name": "Newton",
-      "image": "/assets/blue-heeler.png",
-      "description": "Planner maxime invoice ROI granular ouch Franc",
-      "isFavorite": true,
-      "id": 19
     }
   ]
 }
