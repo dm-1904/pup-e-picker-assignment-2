@@ -127,7 +127,8 @@ body {
   margin-right: 10px;
 }
 
-.content-container {
+.content-container,
+.dog-section {
   width: 100%;
   display: flex;
   flex-wrap: wrap;

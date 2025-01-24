@@ -22,6 +22,13 @@
 
 import { Dog } from "./types";
 
+export type RequestsType = {
+  getAllRequests: () => Promise<Dog[]>;
+  postItem: (note: Omit<Dog, "id">) => Promise<Dog>;
+  deleteItem: (id: number) => Promise<void>;
+  updateItem: (id: number, updatedItem: Partial<Dog>) => Promise<Dog | null>;
+};
+
 export const baseUrl = "http://localhost:3000";
 
 const API_URL = "http://localhost:3000";
@@ -79,6 +86,8 @@ export const Requests = {
       });
   },
   updateItem: (id: number, updatedItem: Partial<Dog>): Promise<Dog | null> => {
+    console.log(`${API_URL}/dogs/${id}`);
+
     return fetch(`${API_URL}/dogs/${id}`, {
       method: "PATCH",
       headers: {

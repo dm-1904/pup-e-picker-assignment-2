@@ -2,7 +2,7 @@
 
 import { useCallback, useContext, useEffect, useState } from "react";
 import { AllDogContext, Dog } from "../types";
-import { Requests } from "../api";
+import { Requests, RequestsType } from "../api";
 import { DogCard } from "./DogCard";
 
 // Todo: Refactor to get rid of props (THERE SHOULD BE NO PROPS DRILLING ON THIS COMPONENT)
@@ -15,10 +15,11 @@ export const Dogs = () => {
   //   return Requests.getAllRequests().then(setAllDogs);
   // };
   const fetchAndSetAllDogs = useCallback(async () => {
-    console.log("Fetching dogs...");
+    // console.log("Fetching dogs...");
     try {
       const dogs = await Requests.getAllRequests();
       setAllDogs(dogs);
+      // console.log(dogs);
     } catch (error) {
       console.error("Failed to fetch dogs:", error);
     } finally {
@@ -68,8 +69,19 @@ export const Dogs = () => {
   //   const updateDog = { ...dog, isFavorite: !dog.isFavorite };
   //   Requests.updateItem(dog.id, updateDog).then(() => fetchAndSetAllDogs());
   // };
+  // const handleFavoriteClick = async (dog: Dog) => {
+  //   const updatedDog = { ...dog, isFavorite: !dog.isFavorite };
+
+  //   try {
+  //     await Requests.updateItem(dog.id, updatedDog);
+  //     await fetchAndSetAllDogs();
+  //   } catch (error) {
+  //     console.error("Failed to update dog:", error);
+  //   }
+  // };
   const handleFavoriteClick = async (dog: Dog) => {
     const updatedDog = { ...dog, isFavorite: !dog.isFavorite };
+
     try {
       await Requests.updateItem(dog.id, updatedDog);
       await fetchAndSetAllDogs();
@@ -94,7 +106,6 @@ export const Dogs = () => {
   //   ));
   // };
   const renderDogCards = (dogs: Dog[]) => {
-    console.log("rendering dogs...");
     return dogs.map((dog) => (
       <div key={dog.id}>
         <DogCard
