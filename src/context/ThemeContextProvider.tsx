@@ -1,15 +1,21 @@
 import { ReactNode, useState } from "react";
-import { AllDogContext, Dog, TActiveTab } from "../types";
+import { AllDogContext, Dog } from "../types";
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
-  const [activeTab, setActiveTab] = useState("none");
+  const [activeTab, setActiveTab] = useState<
+    "create" | "fav" | "unfav" | "none"
+  >("none");
   const [displayAll, setDisplayAll] = useState(true);
   const [displayFavorites, setDisplayFavorites] = useState(false);
   const [displayUnfavorites, setDisplayUnfavorites] = useState(false);
 
-  const handleTabChange = (tabName: TActiveTab) => {
-    setActiveTab(tabName);
+  const handleTabChange = (tabName: "create" | "fav" | "unfav" | "none") => {
+    if (activeTab === tabName) {
+      setActiveTab("none");
+    } else {
+      setActiveTab(tabName);
+    }
   };
 
   // const fetchDogs = () => {
@@ -35,6 +41,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         setDisplayFavorites,
         displayUnfavorites,
         setDisplayUnfavorites,
+        handleTabChange,
       }}
     >
       {children}

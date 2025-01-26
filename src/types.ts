@@ -15,14 +15,21 @@ export type Dog = z.infer<typeof dogSchema>;
 export const allDogContextSchema = z.object({
   allDogs: z.array(dogSchema),
   setAllDogs: z.function().args(z.array(dogSchema)).returns(z.void()),
-  activeTab: z.string(),
-  setActiveTab: z.function().args(z.string()).returns(z.void()),
+  activeTab: z.enum(["create", "fav", "unfav", "none"]),
+  setActiveTab: z
+    .function()
+    .args(z.enum(["create", "fav", "unfav", "none"]))
+    .returns(z.void()),
   displayAll: z.boolean(),
   setDisplayAll: z.function().args(z.boolean()).returns(z.void()),
   displayFavorites: z.boolean(),
   setDisplayFavorites: z.function().args(z.boolean()).returns(z.void()),
   displayUnfavorites: z.boolean(),
   setDisplayUnfavorites: z.function().args(z.boolean()).returns(z.void()),
+  handleTabChange: z
+    .function()
+    .args(z.enum(["create", "fav", "unfav", "none"]))
+    .returns(z.void()),
 });
 //Lines 15-18 defines a Zod schema for the context object.
 //This schema specifies that the context object should have:
@@ -53,6 +60,12 @@ const initialDogContext: AllDogContextType = {
   displayUnfavorites: false,
   setDisplayUnfavorites: (display: boolean) => {
     initialDogContext.displayUnfavorites = display;
+  },
+  handleTabChange: function (
+    args_0: "create" | "fav" | "unfav" | "none",
+    ...args: unknown[]
+  ): void {
+    throw new Error("Function not implemented.");
   },
 };
 //Lines 28-33 defines the initial context object initialDogContext with:

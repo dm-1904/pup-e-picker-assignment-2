@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useContext, useEffect, useState } from "react";
-import { AllDogContext, Dog, TActiveTab } from "../types";
+import { AllDogContext, Dog } from "../types";
 
 export const Section = ({
   label,
@@ -11,6 +11,8 @@ export const Section = ({
 }) => {
   const { allDogs } = useContext(AllDogContext);
   const [favoriteDogs, setFavoritedDogs] = useState<Dog[]>([]);
+  const { activeTab } = useContext(AllDogContext);
+  const { handleTabChange } = useContext(AllDogContext);
   // const [activeTab, setActiveTab] = useState<TActiveTab>("none");
 
   // const handleTabChange = (tabName: TActiveTab) => {
@@ -32,9 +34,9 @@ export const Section = ({
         <div className="selectors">
           {/* This should display the favorited count */}
           <div
-            className={`selector ${"active"}`}
+            className={`selector ${activeTab === "fav" ? "active" : ""}`}
             onClick={() => {
-              alert("click favorited");
+              handleTabChange("fav");
             }}
           >
             favorited ( {favoriteDogs.length} )
@@ -42,17 +44,17 @@ export const Section = ({
 
           {/* This should display the unfavorited count */}
           <div
-            className={`selector ${""}`}
+            className={`selector ${activeTab === "unfav" ? "active" : ""}`}
             onClick={() => {
-              alert("click unfavorited");
+              handleTabChange("unfav");
             }}
           >
             unfavorited ( {10} )
           </div>
           <div
-            className={`selector ${""}`}
+            className={`selector ${activeTab === "create" ? "active" : ""}`}
             onClick={() => {
-              alert("clicked create dog");
+              handleTabChange("create");
             }}
           >
             create dog
