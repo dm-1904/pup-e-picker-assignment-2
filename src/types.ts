@@ -46,7 +46,7 @@ const initialDogContext: AllDogContextType = {
     initialDogContext.allDogs = dogs;
   },
   activeTab: "none",
-  setActiveTab: (tab: string) => {
+  setActiveTab: (tab: TActiveTab) => {
     initialDogContext.activeTab = tab;
   },
   displayAll: true,
@@ -61,10 +61,7 @@ const initialDogContext: AllDogContextType = {
   setDisplayUnfavorites: (display: boolean) => {
     initialDogContext.displayUnfavorites = display;
   },
-  handleTabChange: function (
-    args_0: "create" | "fav" | "unfav" | "none",
-    ...args: unknown[]
-  ): void {
+  handleTabChange: function (): void {
     throw new Error("Function not implemented.");
   },
 };
