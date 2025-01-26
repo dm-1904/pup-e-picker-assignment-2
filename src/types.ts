@@ -20,12 +20,6 @@ export const allDogContextSchema = z.object({
     .function()
     .args(z.enum(["create", "fav", "unfav", "none"]))
     .returns(z.void()),
-  displayAll: z.boolean(),
-  setDisplayAll: z.function().args(z.boolean()).returns(z.void()),
-  displayFavorites: z.boolean(),
-  setDisplayFavorites: z.function().args(z.boolean()).returns(z.void()),
-  displayUnfavorites: z.boolean(),
-  setDisplayUnfavorites: z.function().args(z.boolean()).returns(z.void()),
   handleTabChange: z
     .function()
     .args(z.enum(["create", "fav", "unfav", "none"]))
@@ -49,18 +43,7 @@ const initialDogContext: AllDogContextType = {
   setActiveTab: (tab: TActiveTab) => {
     initialDogContext.activeTab = tab;
   },
-  displayAll: true,
-  setDisplayAll: (display: boolean) => {
-    initialDogContext.displayAll = display;
-  },
-  displayFavorites: false,
-  setDisplayFavorites: (display: boolean) => {
-    initialDogContext.displayFavorites = display;
-  },
-  displayUnfavorites: false,
-  setDisplayUnfavorites: (display: boolean) => {
-    initialDogContext.displayUnfavorites = display;
-  },
+
   handleTabChange: function (): void {
     throw new Error("Function not implemented.");
   },

@@ -4,12 +4,14 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { AllDogContext, Dog } from "../types";
 import { Requests } from "../api";
 import { DogCard } from "./DogCard";
+import { CreateDogForm } from "./CreateDogForm";
 
 // Todo: Refactor to get rid of props (THERE SHOULD BE NO PROPS DRILLING ON THIS COMPONENT)
 export const Dogs = () => {
   // all dogs are a piece of state. set up react context for this.
   const { allDogs, setAllDogs } = useContext(AllDogContext);
   const [isLoading, setIsLoading] = useState(true);
+  const { activeTab } = useContext(AllDogContext);
 
   // const fetchAndSetAllDogs = () => {
   //   return Requests.getAllRequests().then(setAllDogs);
@@ -134,12 +136,13 @@ export const Dogs = () => {
   return (
     <>
       <section className="dog-section">
-        {renderDogCards(allDogs)}
-        {/* {displayAll && renderDogCards(allDogs)}
-      {displayFavorites &&
-        renderDogCards(allDogs.filter((dog) => dog.isFavorite))}
-      {displayUnfavorites &&
-        renderDogCards(allDogs.filter((dog) => !dog.isFavorite))} */}
+        {/* {renderDogCards(allDogs)} */}
+        {activeTab === "none" && renderDogCards(allDogs)}
+        {activeTab === "fav" &&
+          renderDogCards(allDogs.filter((dog) => dog.isFavorite))}
+        {activeTab === "unfav" &&
+          renderDogCards(allDogs.filter((dog) => !dog.isFavorite))}
+        {activeTab === "create" && <CreateDogForm />}
       </section>
     </>
   );

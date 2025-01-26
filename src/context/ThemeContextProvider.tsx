@@ -6,9 +6,6 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [activeTab, setActiveTab] = useState<
     "create" | "fav" | "unfav" | "none"
   >("none");
-  const [displayAll, setDisplayAll] = useState(true);
-  const [displayFavorites, setDisplayFavorites] = useState(false);
-  const [displayUnfavorites, setDisplayUnfavorites] = useState(false);
 
   const handleTabChange = (tabName: "create" | "fav" | "unfav" | "none") => {
     if (activeTab === tabName) {
@@ -35,12 +32,6 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         setAllDogs,
         activeTab,
         setActiveTab,
-        displayAll,
-        setDisplayAll,
-        displayFavorites,
-        setDisplayFavorites,
-        displayUnfavorites,
-        setDisplayUnfavorites,
         handleTabChange,
       }}
     >
