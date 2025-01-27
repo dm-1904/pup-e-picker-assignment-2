@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { dogPictures } from "../dog-pictures";
 import { Requests } from "../api";
 import { AllDogContext } from "../types";
@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 export const CreateDogForm = () =>
   // no props allowed
   {
-    const [selectedImage, setSelectedImage] = useState(dogPictures.BlueHeeler);
     const {
       isLoading,
       setIsLoading,
@@ -20,11 +19,6 @@ export const CreateDogForm = () =>
       setPicture,
       handleTabChange,
     } = useContext(AllDogContext);
-
-    // const handleTabChange = (tab: string): void => {
-    //   // Implement the tab change logic here
-    //   console.log(`Tab changed to: ${tab}`);
-    // };
 
     const handleCreateDog = (e: React.FormEvent): void => {
       e.preventDefault();

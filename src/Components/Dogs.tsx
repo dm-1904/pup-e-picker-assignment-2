@@ -11,25 +11,6 @@ export const Dogs = () => {
   const { allDogs, fetchAndSetAllDogs, isLoading, setIsLoading, activeTab } =
     useContext(AllDogContext);
 
-  // const fetchAndSetAllDogs = useCallback(async () => {
-  //   // console.log("Fetching dogs...");
-  //   try {
-  //     const dogs = await Requests.getAllRequests();
-  //     setAllDogs(dogs);
-  //     // console.log(dogs);
-  //   } catch (error) {
-  //     console.error("Failed to fetch dogs:", error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }, [setAllDogs]);
-
-  // useEffect(() => {
-  //   fetchAndSetAllDogs().catch((error) =>
-  //     console.error("Error fetching dogs:", error)
-  //   );
-  // }, [fetchAndSetAllDogs, setAllDogs]);
-
   const handleFavoriteClick = async (dog: Dog) => {
     const updatedDog = { ...dog, isFavorite: !dog.isFavorite };
 
@@ -70,7 +51,6 @@ export const Dogs = () => {
   return (
     <>
       <section className="dog-section">
-        {/* {renderDogCards(allDogs)} */}
         {activeTab === "none" && renderDogCards(allDogs)}
         {activeTab === "fav" &&
           renderDogCards(allDogs.filter((dog) => dog.isFavorite))}

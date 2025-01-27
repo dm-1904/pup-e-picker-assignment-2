@@ -13,11 +13,6 @@ export const Section = ({
   const [favoriteDogs, setFavoritedDogs] = useState<Dog[]>([]);
   const { activeTab } = useContext(AllDogContext);
   const { handleTabChange } = useContext(AllDogContext);
-  // const [activeTab, setActiveTab] = useState<TActiveTab>("none");
-
-  // const handleTabChange = (tabName: TActiveTab) => {
-  //   setActiveTab(tabName);
-  // };
 
   const fetchAndSetFavoritedDogs = useCallback(() => {
     const favorited = allDogs.filter((dog) => dog.isFavorite);
