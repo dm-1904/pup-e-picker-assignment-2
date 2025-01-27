@@ -40,6 +40,44 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // const handleFavoriteClick = async (dog: Dog) => {
+  //   const updatedDog = { ...dog, isFavorite: !dog.isFavorite };
+
+  //   try {
+  //     await Requests.updateItem(dog.id, updatedDog);
+  //     await fetchAndSetAllDogs();
+  //   } catch (error) {
+  //     console.error("Failed to update dog:", error);
+  //   }
+  // };
+
+  // const renderDogCards = (dogs: Dog[]) => {
+  //   return dogs.map((dog) => (
+  //     <div key={dog.id}>
+  //       <DogCard
+  //         dog={dog}
+  //         onTrashIconClick={() => {
+  //           setIsLoading(true);
+  //           Requests.deleteItem(dog.id)
+  //             .then(() => fetchAndSetAllDogs())
+  //             .finally(() => setIsLoading(false));
+  //         }}
+  //         onHeartClick={() => {
+  //           handleFavoriteClick(dog).catch((error) => {
+  //             console.error("Error handleing favorite click:", error);
+  //           });
+  //         }}
+  //         onEmptyHeartClick={() => {
+  //           handleFavoriteClick(dog).catch((error) => {
+  //             console.error("Error handling favorite click", error);
+  //           });
+  //         }}
+  //         isLoading={isLoading}
+  //       />
+  //     </div>
+  //   ));
+  // };
+
   // const fetchDogs = () => {
   //   // get Request
   //   // then set dogs list

@@ -8,9 +8,8 @@ import { CreateDogForm } from "./CreateDogForm";
 
 // Todo: Refactor to get rid of props (THERE SHOULD BE NO PROPS DRILLING ON THIS COMPONENT)
 export const Dogs = () => {
-  const { allDogs, fetchAndSetAllDogs, isLoading, setIsLoading } =
+  const { allDogs, fetchAndSetAllDogs, isLoading, setIsLoading, activeTab } =
     useContext(AllDogContext);
-  const { activeTab } = useContext(AllDogContext);
 
   // const fetchAndSetAllDogs = useCallback(async () => {
   //   // console.log("Fetching dogs...");

@@ -118,6 +118,13 @@
       "description": "Lead synergistic noisy operating Passenger female Salad Rubber",
       "isFavorite": true,
       "id": 18
+    },
+    {
+      "name": "test3",
+      "description": "test3",
+      "image": "/assets/chihuahua.avif",
+      "isFavorite": false,
+      "id": 21
     }
   ]
 }

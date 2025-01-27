@@ -34,6 +34,10 @@ export const allDogContextSchema = z.object({
   picture: z.string(),
   setPicture: z.function().args(z.string()).returns(z.void()),
   fetchAndSetAllDogs: z.function().returns(z.promise(z.void())),
+  // renderDogCards: z
+  //   .function()
+  //   .args(z.array(dogSchema))
+  //   .returns(z.array(z.unknown())),
 });
 //Lines 15-18 defines a Zod schema for the context object.
 //This schema specifies that the context object should have:
@@ -86,6 +90,32 @@ const initialDogContext: AllDogContextType = {
       initialDogContext.setIsLoading(false);
     }
   },
+  // renderDogCards: (dogs: Dog[]): JSX.Element[] => {
+  //   return dogs.map((dog) => (
+  //     <div key={dog.id}>
+  //       <DogCard
+  //         dog={dog}
+  //         onTrashIconClick={() => {
+  //           initialDogContext.setIsLoading(true);
+  //           Requests.deleteItem(dog.id)
+  //             .then(() => initialDogContext.fetchAndSetAllDogs())
+  //             .finally(() => initialDogContext.setIsLoading(false));
+  //         }}
+  //         onHeartClick={() => {
+  //           initialDogContext.handleFavoriteClick(dog).catch((error) => {
+  //             console.error("Error handling favorite click:", error);
+  //           });
+  //         }}
+  //         onEmptyHeartClick={() => {
+  //           initialDogContext.handleFavoriteClick(dog).catch((error) => {
+  //             console.error("Error handling favorite click", error);
+  //           });
+  //         }}
+  //         isLoading={initialDogContext.isLoading}
+  //       />
+  //     </div>
+  //   ));
+  // },
 };
 
 //Lines 28-33 defines the initial context object initialDogContext with:
