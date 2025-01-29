@@ -7,24 +7,23 @@ export type RequestsType = {
   updateItem: (id: number, updatedItem: Partial<Dog>) => Promise<Dog | null>;
 };
 
-export const baseUrl = "http://localhost:3000";
-
 const API_URL = "http://localhost:3000";
 
 export const Requests = {
   // should return a promise with all info in the database
-  getAllRequests: (): Promise<Dog[]> => {
+  getAllRequests: () => {
     return fetch(`${API_URL}/dogs`)
       .then((res) => {
         if (res.ok) {
-          return res.json() as Promise<Dog[]>;
-        } else {
-          throw new Error("Failed to fetch dogs");
+          return res.json();
         }
+        throw new Error(`HTTP Request failed with status ${res.status}`);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.error("Error fetching dogs", error);
-        return [];
+        throw new Error(
+          `Fetching all dogs failed with error: ${error.message}`
+        );
       });
   },
   // should create an item in the database from a partial item object
@@ -40,13 +39,12 @@ export const Requests = {
       .then((res) => {
         if (res.ok) {
           return res.json();
-        } else {
-          throw new Error("Failed to create dog");
         }
+        throw new Error(`HTTP POST failed with status ${res.status}`);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.error("Error creating dog", error);
-        return null;
+        throw new Error(`Posting dog failed with error: ${error.message}`);
       });
   },
   // should delete an item from the database
@@ -56,11 +54,12 @@ export const Requests = {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to delete dog");
+          throw new Error(`Failed to delete dog with status ${res.status}`);
         }
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.error("Error deleting dog", error);
+        throw new Error(`Deleting dog failed with error: ${error.message}`);
       });
   },
   updateItem: (id: number, updatedItem: Partial<Dog>): Promise<Dog | null> => {
@@ -74,13 +73,12 @@ export const Requests = {
       .then((res) => {
         if (res.ok) {
           return res.json() as Promise<Dog>;
-        } else {
-          throw new Error("Failed to update item");
         }
+        throw new Error(`Failed to update item with status ${res.status}`);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.error("Error updating item", error);
-        return null;
+        throw new Error(`Failed to PATCH item with error: ${error.message}`);
       });
   },
 };
