@@ -1,6 +1,6 @@
 import { Dogs } from "./Components/Dogs";
 import { Section } from "./Components/Section";
-import { ThemeProvider } from "./context/ThemeContextProvider";
+import { ThemeProvider } from "./context/DogsContextProvider";
 
 export function App() {
   return (

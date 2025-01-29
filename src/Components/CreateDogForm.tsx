@@ -5,6 +5,10 @@ import { AllDogContext } from "../types";
 import toast from "react-hot-toast";
 
 export const CreateDogForm = () =>
+
+    const [name, setName] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+    const [picture, setPicture] = useState<string>(Object.values(dogPictures)[0]);
   // no props allowed
   {
     const {

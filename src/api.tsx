@@ -11,7 +11,7 @@ const API_URL = "http://localhost:3000";
 
 export const Requests = {
   // should return a promise with all info in the database
-  getAllRequests: () => {
+  getAllDogs: () => {
     return fetch(`${API_URL}/dogs`)
       .then((res) => {
         if (res.ok) {
