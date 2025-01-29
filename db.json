@@ -25,7 +25,7 @@
       "name": "Alfred",
       "image": "/assets/cowardly.png",
       "description": "Northwest DRAM henry applications South",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 5
     },
     {
@@ -39,7 +39,7 @@
       "name": "Kenton",
       "image": "/assets/cowardly.png",
       "description": "Bedfordshire Human tempora Managed Electronic Directives Nissan expedite",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 7
     },
     {
@@ -81,7 +81,7 @@
       "name": "Sebastian",
       "image": "/assets/boxer.png",
       "description": "Associate Gasoline Savings Hybrid Developer",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 13
     },
     {
@@ -118,13 +118,6 @@
       "description": "Lead synergistic noisy operating Passenger female Salad Rubber",
       "isFavorite": true,
       "id": 18
-    },
-    {
-      "name": "test3",
-      "description": "test3",
-      "image": "/assets/chihuahua.avif",
-      "isFavorite": false,
-      "id": 21
     }
   ]
 }

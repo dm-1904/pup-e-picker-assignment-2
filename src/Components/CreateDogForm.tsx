@@ -1,57 +1,30 @@
-import { useContext } from "react";
+import { useState } from "react";
 import { dogPictures } from "../dog-pictures";
-import { Requests } from "../api";
-import { AllDogContext } from "../types";
-import toast from "react-hot-toast";
+import { useDogs } from "../context/UseDogs";
 
 export const CreateDogForm = () =>
-
-    const [name, setName] = useState<string>("");
-    const [description, setDescription] = useState<string>("");
-    const [picture, setPicture] = useState<string>(Object.values(dogPictures)[0]);
   // no props allowed
   {
-    const {
-      isLoading,
-      setIsLoading,
+    const [name, setName] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+    const [picture, setPicture] = useState<string>(
+      Object.values(dogPictures)[0]
+    );
+    const { isLoading, setIsLoading, handleCreateDog } = useDogs();
+
+    const dogData = {
       name,
       description,
-      picture,
-      fetchAndSetAllDogs,
-      setName,
-      setDescription,
-      setPicture,
-      handleTabChange,
-    } = useContext(AllDogContext);
-
-    const handleCreateDog = (e: React.FormEvent): void => {
-      e.preventDefault();
-      setIsLoading(true);
-      const newDog = {
-        name,
-        description,
-        image: picture,
-        isFavorite: false,
-      };
-      console.log(newDog);
-      Requests.postItem(newDog)
-        .then(() => {
-          fetchAndSetAllDogs().catch((error) => {
-            console.error("Failed to fetch and set all dogs:", error);
-          });
-          setName("");
-          setDescription("");
-          setPicture(Object.values(dogPictures)[0]);
-        })
-        .then(() => handleTabChange("none"))
-        .then(() => toast.success(`✅ ${name} has been added! 🐾`))
-        .finally(() => setIsLoading(false));
+      image: picture,
     };
 
     return (
       <form
         id="create-dog-form"
-        onSubmit={handleCreateDog}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleCreateDog(dogData).catch(() => `Failed to create dog`);
+        }}
       >
         <h4>Create a New Dog</h4>
         <label htmlFor="name">Dog Name</label>

@@ -1,7 +1,7 @@
 import { Dog } from "./types";
 
 export type RequestsType = {
-  getAllRequests: () => Promise<Dog[]>;
+  getAllDogs: () => Promise<Dog[]>;
   postItem: (note: Omit<Dog, "id">) => Promise<Dog>;
   deleteItem: (id: number) => Promise<void>;
   updateItem: (id: number, updatedItem: Partial<Dog>) => Promise<Dog | null>;
@@ -9,7 +9,7 @@ export type RequestsType = {
 
 const API_URL = "http://localhost:3000";
 
-export const Requests = {
+export const Requests: RequestsType = {
   // should return a promise with all info in the database
   getAllDogs: () => {
     return fetch(`${API_URL}/dogs`)

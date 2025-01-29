@@ -1,5 +1,6 @@
 import { ReactNode, useCallback, useContext, useEffect, useState } from "react";
-import { AllDogContext, Dog } from "../types";
+import { Dog } from "../types";
+import { DogContext } from "../context/DogsContextProvider";
 
 export const Section = ({
   label,
@@ -9,10 +10,10 @@ export const Section = ({
   label: string;
   children: ReactNode;
 }) => {
-  const { allDogs } = useContext(AllDogContext);
+  const { allDogs } = useContext(DogContext);
   const [favoriteDogs, setFavoritedDogs] = useState<Dog[]>([]);
-  const { activeTab } = useContext(AllDogContext);
-  const { handleTabChange } = useContext(AllDogContext);
+  const { activeTab } = useContext(DogContext);
+  const { handleTabChange } = useContext(DogContext);
 
   const fetchAndSetFavoritedDogs = useCallback(() => {
     const favorited = allDogs.filter((dog) => dog.isFavorite);
@@ -29,9 +30,9 @@ export const Section = ({
         <div className="selectors">
           {/* This should display the favorited count */}
           <div
-            className={`selector ${activeTab === "fav" ? "active" : ""}`}
+            className={`selector ${activeTab === "favorited" ? "active" : ""}`}
             onClick={() => {
-              handleTabChange("fav");
+              handleTabChange("favorited");
             }}
           >
             favorited ( {favoriteDogs.length} )
@@ -39,17 +40,19 @@ export const Section = ({
 
           {/* This should display the unfavorited count */}
           <div
-            className={`selector ${activeTab === "unfav" ? "active" : ""}`}
+            className={`selector ${
+              activeTab === "unfavorited" ? "active" : ""
+            }`}
             onClick={() => {
-              handleTabChange("unfav");
+              handleTabChange("unfavorited");
             }}
           >
-            unfavorited ( {10} )
+            unfavorited ( {allDogs.length - favoriteDogs.length} )
           </div>
           <div
-            className={`selector ${activeTab === "create" ? "active" : ""}`}
+            className={`selector ${activeTab === "createDog" ? "active" : ""}`}
             onClick={() => {
-              handleTabChange("create");
+              handleTabChange("createDog");
             }}
           >
             create dog

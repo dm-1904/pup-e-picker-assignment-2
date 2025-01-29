@@ -1,6 +1,6 @@
 import { Dogs } from "./Components/Dogs";
 import { Section } from "./Components/Section";
-import { ThemeProvider } from "./context/DogsContextProvider";
+import { DogsProvider } from "./context/DogsContextProvider";
 
 export function App() {
   return (
@@ -11,11 +11,11 @@ export function App() {
       <header>
         <h1>pup-e-picker (Functional)</h1>
       </header>
-      <ThemeProvider>
+      <DogsProvider>
         <Section label={"Dogs: "}>
           <Dogs />
         </Section>
-      </ThemeProvider>
+      </DogsProvider>
     </div>
   );
 }
