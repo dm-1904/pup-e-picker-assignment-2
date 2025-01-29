@@ -10,7 +10,7 @@ export const CreateDogForm = () =>
     const [picture, setPicture] = useState<string>(
       Object.values(dogPictures)[0]
     );
-    const { isLoading, setIsLoading, handleCreateDog } = useDogs();
+    const { isLoading, handleCreateDog } = useDogs();
 
     const dogData = {
       name,

@@ -57,6 +57,7 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
         await fetchAndSetAllDogs().catch((error) => {
           console.error("Failed to fetch and set all dogs:", error);
         });
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         toast.success(`✅ ${name} has been added! 🐾`);
         return data;
       })
