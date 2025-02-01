@@ -4,7 +4,7 @@
       "name": "Jonatan",
       "image": "/assets/boxer.png",
       "description": "Shoes after Dollar Marketing female generating Diesel",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 0
     },
     {
@@ -118,13 +118,6 @@
       "description": "Lead synergistic noisy operating Passenger female Salad Rubber",
       "isFavorite": true,
       "id": 18
-    },
-    {
-      "name": "345",
-      "description": "567",
-      "image": "/assets/blue-heeler.png",
-      "isFavorite": false,
-      "id": 19
     }
   ]
 }

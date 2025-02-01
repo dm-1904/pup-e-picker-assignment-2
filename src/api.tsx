@@ -37,10 +37,10 @@ export const Requests: RequestsType = {
       body: JSON.stringify(note),
     })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
+        if (!res.ok) {
+          throw new Error(`HTTP POST failed with status ${res.status}`);
         }
-        throw new Error(`HTTP POST failed with status ${res.status}`);
+        return res.json();
       })
       .catch((error: Error) => {
         console.error("Error creating dog", error);
@@ -62,7 +62,7 @@ export const Requests: RequestsType = {
         throw new Error(`Deleting dog failed with error: ${error.message}`);
       });
   },
-  updateItem: (id: number, updatedItem: Partial<Dog>): Promise<Dog | null> => {
+  updateItem: (id: number, updatedItem: Partial<Dog | null>): Promise<Dog> => {
     return fetch(`${API_URL}/dogs/${id}`, {
       method: "PATCH",
       headers: {
@@ -71,10 +71,10 @@ export const Requests: RequestsType = {
       body: JSON.stringify(updatedItem),
     })
       .then((res) => {
-        if (res.ok) {
-          return res.json() as Promise<Dog>;
+        if (!res.ok) {
+          throw new Error(`Failed to update item with status ${res.status}`);
         }
-        throw new Error(`Failed to update item with status ${res.status}`);
+        return res.json() as Promise<Dog>;
       })
       .catch((error: Error) => {
         console.error("Error updating item", error);

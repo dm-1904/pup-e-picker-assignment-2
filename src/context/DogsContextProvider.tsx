@@ -14,7 +14,7 @@ type TDogContext = {
   fetchAndSetAllDogs: () => Promise<void>;
   handleCreateDog: (dogData: Partial<Dog>) => Promise<Dog>;
   dogsList: Record<ActiveTab, Dog[]>;
-  handleTrashClick: (id: string) => void;
+  handleTrashClick: (id: string) => Promise<void>;
   handleFavoriteClick: (id: string, isFavorite: boolean) => Promise<void>;
 };
 
@@ -57,8 +57,7 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
         await fetchAndSetAllDogs().catch((error) => {
           console.error("Failed to fetch and set all dogs:", error);
         });
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        toast.success(`✅ ${name} has been added! 🐾`);
+        toast.success(`✅ ${data.name} has been added! 🐾`);
         return data;
       })
       .catch((error) => {
@@ -77,23 +76,29 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
 
     const updatedDog = { ...dog, isFavorite };
 
+    setAllDogs(
+      allDogs.map((dogItem) => (dogItem.id !== dog.id ? dogItem : updatedDog))
+    );
+
     try {
       await updateItem(dog.id, updatedDog);
-      await fetchAndSetAllDogs();
+      toast.success(`Favorites updated.`);
     } catch (error) {
-      console.error("Failed to update dog:", error);
+      toast.error(`Favorites failed to update.`);
+      setAllDogs(allDogs);
     }
   };
 
-  const handleTrashClick = (id: string): void => {
+  const handleTrashClick = async (id: string): Promise<void> => {
+    const previousDogs = [...allDogs];
+    setAllDogs(allDogs.filter((dog) => dog.id !== Number(id)));
     try {
-      deleteItem(Number(id))
-        .then(() => fetchAndSetAllDogs())
-        .catch((error) => {
-          console.error("Failed to delete dog:", error);
-        });
+      await deleteItem(Number(id));
+      toast.success(`Dog deleted`);
     } catch (error) {
       console.error("Failed to delete dog:", error);
+      setAllDogs(previousDogs);
+      toast.error("Failed to delete dog");
     }
   };
 
