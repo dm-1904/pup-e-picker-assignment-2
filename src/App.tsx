@@ -1,8 +1,13 @@
+import { CreateDogForm } from "./Components/CreateDogForm";
 import { Dogs } from "./Components/Dogs";
 import { Section } from "./Components/Section";
-import { DogsProvider } from "./context/DogsContextProvider";
+import { useDogs } from "./context/UseDogs";
 
 export function App() {
+  const { activeTab } = useDogs();
+
+  const isCreateView = activeTab === "createDog";
+
   return (
     <div
       className="App"
@@ -11,11 +16,16 @@ export function App() {
       <header>
         <h1>pup-e-picker (Functional)</h1>
       </header>
-      <DogsProvider>
+      {!isCreateView && (
         <Section label={"Dogs: "}>
           <Dogs />
         </Section>
-      </DogsProvider>
+      )}
+      {isCreateView && (
+        <Section label={"Dogs: "}>
+          <CreateDogForm />
+        </Section>
+      )}
     </div>
   );
 }

@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { dogPictures } from "../dog-pictures";
 import { useDogs } from "../context/UseDogs";
+import toast from "react-hot-toast";
+
+const defaultImage = dogPictures.BlueHeeler;
 
 export const CreateDogForm = () =>
   // no props allowed
   {
     const [name, setName] = useState<string>("");
     const [description, setDescription] = useState<string>("");
-    const [picture, setPicture] = useState<string>(
-      Object.values(dogPictures)[0]
-    );
+    const [picture, setPicture] = useState<string>(defaultImage);
     const { isLoading, handleCreateDog } = useDogs();
 
     const dogData = {
@@ -18,12 +19,24 @@ export const CreateDogForm = () =>
       image: picture,
     };
 
+    const reset = () => {
+      setName("");
+      setDescription("");
+      setPicture(defaultImage);
+    };
+
     return (
       <form
         id="create-dog-form"
         onSubmit={(e) => {
           e.preventDefault();
-          handleCreateDog(dogData).catch(() => `Failed to create dog`);
+          void handleCreateDog(dogData)
+            .then(() => {
+              reset();
+            })
+            .catch((error) => {
+              throw error;
+            });
         }}
       >
         <h4>Create a New Dog</h4>
@@ -49,12 +62,15 @@ export const CreateDogForm = () =>
           onChange={(e) => {
             setPicture(e.target.value);
           }}
+          disabled={isLoading}
         >
-          {Object.entries(dogPictures).map(([label, pictureValue]) => {
+          {Object.entries(dogPictures).map((item) => {
+            const [label, pictureValue] = item;
             return (
               <option
                 value={pictureValue}
                 key={pictureValue}
+                selected={picture === pictureValue}
               >
                 {label}
               </option>

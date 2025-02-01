@@ -4,7 +4,6 @@ import { Requests } from "../api";
 import toast from "react-hot-toast";
 
 type TDogContext = {
-  allDogs: Dog[];
   setAllDogs: (dogsList: Dog[]) => void;
   activeTab: ActiveTab;
   setActiveTab: (name: ActiveTab) => void;
@@ -12,10 +11,12 @@ type TDogContext = {
   setIsLoading: (arg: boolean) => void;
   handleTabChange: (tab: ActiveTab) => void;
   fetchAndSetAllDogs: () => Promise<void>;
-  handleCreateDog: (dogData: Partial<Dog>) => Promise<Dog>;
+  handleCreateDog: (dogData: Partial<Dog>) => Promise<void>;
   dogsList: Record<ActiveTab, Dog[]>;
   handleTrashClick: (id: string) => Promise<void>;
   handleFavoriteClick: (id: string, isFavorite: boolean) => Promise<void>;
+  favoritedDogsNum: number;
+  unFavoritedDogsNum: number;
 };
 
 export const DogContext = createContext({} as TDogContext);
@@ -53,17 +54,7 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
       isFavorite: false,
     };
     return postItem(newDog as Omit<Dog, "id">)
-      .then(async (data: Dog) => {
-        await fetchAndSetAllDogs().catch((error) => {
-          console.error("Failed to fetch and set all dogs:", error);
-        });
-        toast.success(`✅ ${data.name} has been added! 🐾`);
-        return data;
-      })
-      .catch((error) => {
-        toast.error("Something went wrong");
-        throw error;
-      })
+      .then(() => fetchAndSetAllDogs())
       .finally(() => setIsLoading(false));
   };
 
@@ -102,17 +93,19 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const favoritedDogs = allDogs.filter((dog) => dog.isFavorite);
+  const unFavoritedDogs = allDogs.filter((dog) => !dog.isFavorite);
+
   const dogsList: Record<ActiveTab, Dog[]> = {
     all: allDogs,
-    favorited: allDogs.filter((dog) => dog.isFavorite),
-    unfavorited: allDogs.filter((dog) => !dog.isFavorite),
+    favorited: favoritedDogs,
+    unfavorited: unFavoritedDogs,
     createDog: [],
   };
 
   return (
     <DogContext.Provider
       value={{
-        allDogs,
         setAllDogs,
         activeTab,
         setActiveTab,
@@ -124,6 +117,8 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
         dogsList,
         handleTrashClick,
         handleFavoriteClick,
+        favoritedDogsNum: favoritedDogs.length,
+        unFavoritedDogsNum: unFavoritedDogs.length,
       }}
     >
       {children}

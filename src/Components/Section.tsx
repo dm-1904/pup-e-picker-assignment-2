@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useContext, useEffect, useState } from "react";
 import { Dog } from "../types";
 import { DogContext } from "../context/DogsContextProvider";
+import { useDogs } from "../context/UseDogs";
 
 export const Section = ({
   label,
@@ -10,19 +11,8 @@ export const Section = ({
   label: string;
   children: ReactNode;
 }) => {
-  const { allDogs } = useContext(DogContext);
-  const [favoriteDogs, setFavoritedDogs] = useState<Dog[]>([]);
-  const { activeTab } = useContext(DogContext);
-  const { handleTabChange } = useContext(DogContext);
-
-  const fetchAndSetFavoritedDogs = useCallback(() => {
-    const favorited = allDogs.filter((dog) => dog.isFavorite);
-    setFavoritedDogs(favorited);
-  }, [allDogs]);
-
-  useEffect(() => {
-    fetchAndSetFavoritedDogs();
-  }, [allDogs, fetchAndSetFavoritedDogs]);
+  const { activeTab, handleTabChange, favoritedDogsNum, unFavoritedDogsNum } =
+    useDogs();
   return (
     <section id="main-section">
       <div className="container-header">
@@ -35,7 +25,7 @@ export const Section = ({
               handleTabChange("favorited");
             }}
           >
-            favorited ( {favoriteDogs.length} )
+            favorited ( {favoritedDogsNum} )
           </div>
 
           {/* This should display the unfavorited count */}
@@ -47,7 +37,7 @@ export const Section = ({
               handleTabChange("unfavorited");
             }}
           >
-            unfavorited ( {allDogs.length - favoriteDogs.length} )
+            unfavorited ( {unFavoritedDogsNum} )
           </div>
           <div
             className={`selector ${activeTab === "createDog" ? "active" : ""}`}
