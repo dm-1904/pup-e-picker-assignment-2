@@ -14,10 +14,10 @@ export const Requests: RequestsType = {
   getAllDogs: () => {
     return fetch(`${API_URL}/dogs`)
       .then((res) => {
-        if (res.ok) {
-          return res.json();
+        if (!res.ok) {
+          throw new Error(`HTTP Request failed with status ${res.status}`);
         }
-        throw new Error(`HTTP Request failed with status ${res.status}`);
+        return res.json();
       })
       .catch((error: Error) => {
         console.error("Error fetching dogs", error);
