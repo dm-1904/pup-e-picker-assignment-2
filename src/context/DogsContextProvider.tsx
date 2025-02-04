@@ -12,7 +12,7 @@ type TDogContext = {
   handleTabChange: (tab: ActiveTab) => void;
   fetchAndSetAllDogs: () => Promise<void>;
   handleCreateDog: (dogData: Partial<Dog>) => Promise<void>;
-  dogsList: Record<ActiveTab, Dog[]>;
+  dogsArr: Dog[];
   handleTrashClick: (id: string) => Promise<void>;
   handleFavoriteClick: (id: string, isFavorite: boolean) => Promise<void>;
   favoritedDogsNum: number;
@@ -114,7 +114,7 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
         setIsLoading,
         fetchAndSetAllDogs,
         handleCreateDog,
-        dogsList,
+        dogsArr: dogsList[activeTab],
         handleTrashClick,
         handleFavoriteClick,
         favoritedDogsNum: favoritedDogs.length,

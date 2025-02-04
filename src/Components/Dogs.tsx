@@ -6,18 +6,12 @@ import { useDogs } from "../context/UseDogs";
 
 // Todo: Refactor to get rid of props (THERE SHOULD BE NO PROPS DRILLING ON THIS COMPONENT)
 export const Dogs = () => {
-  const {
-    dogsList,
-    activeTab,
-    isLoading,
-    handleFavoriteClick,
-    handleTrashClick,
-  } = useDogs();
-  const dogData = dogsList[activeTab];
+  const { dogsArr, isLoading, handleFavoriteClick, handleTrashClick } =
+    useDogs();
 
   return (
     <>
-      {dogData.map((dog: Dog) => (
+      {dogsArr.map((dog: Dog) => (
         <DogCard
           key={dog.id}
           dog={dog}

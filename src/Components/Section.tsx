@@ -1,7 +1,6 @@
-import { ReactNode, useCallback, useContext, useEffect, useState } from "react";
-import { Dog } from "../types";
-import { DogContext } from "../context/DogsContextProvider";
+import { ReactNode } from "react";
 import { useDogs } from "../context/UseDogs";
+import { ActiveTab } from "../types";
 
 export const Section = ({
   label,
@@ -13,40 +12,31 @@ export const Section = ({
 }) => {
   const { activeTab, handleTabChange, favoritedDogsNum, unFavoritedDogsNum } =
     useDogs();
+
+  const sectionsArr = [
+    { name: "favorited", itemsNum: favoritedDogsNum },
+    { name: "unfavorited", itemsNum: unFavoritedDogsNum },
+    { name: "createDog" },
+  ];
+
   return (
     <section id="main-section">
       <div className="container-header">
         <div className="container-label">{label}</div>
         <div className="selectors">
-          {/* This should display the favorited count */}
-          <div
-            className={`selector ${activeTab === "favorited" ? "active" : ""}`}
-            onClick={() => {
-              handleTabChange("favorited");
-            }}
-          >
-            favorited ( {favoritedDogsNum} )
-          </div>
-
-          {/* This should display the unfavorited count */}
-          <div
-            className={`selector ${
-              activeTab === "unfavorited" ? "active" : ""
-            }`}
-            onClick={() => {
-              handleTabChange("unfavorited");
-            }}
-          >
-            unfavorited ( {unFavoritedDogsNum} )
-          </div>
-          <div
-            className={`selector ${activeTab === "createDog" ? "active" : ""}`}
-            onClick={() => {
-              handleTabChange("createDog");
-            }}
-          >
-            create dog
-          </div>
+          {sectionsArr.map((section) => {
+            const { name, itemsNum } = section;
+            return (
+              <div
+                className={`selector ${activeTab === name ? "active" : ""}`}
+                onClick={() => {
+                  handleTabChange(name as ActiveTab);
+                }}
+              >
+                {name} {itemsNum ? `( ${itemsNum} )` : ""}
+              </div>
+            );
+          })}
         </div>
       </div>
       <div className="content-container">{children}</div>
